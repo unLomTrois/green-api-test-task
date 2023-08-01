@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start:gateway": "node services/gateway.js",
-    "start:mathservice": "node services/mathservice.js"
+    "service:gateway": "node services/gateway.js",
+    "service:math": "node services/math.js"
   },
   "keywords": [],
   "author": "",

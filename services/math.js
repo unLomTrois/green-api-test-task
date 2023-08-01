@@ -34,9 +34,8 @@ async function sendResponseToQueue(channel, data) {
  * @param {Buffer} content
  */
 async function processTask(channel, content) {
+    const { id, data } = JSON.parse(content.toString());
     try {
-        const { id, data } = JSON.parse(content.toString());
-
         console.log("Полученное задание:", { id, data });
 
         // Вычисление значения выражения
@@ -47,6 +46,7 @@ async function processTask(channel, content) {
         await sendResponseToQueue(channel, responseData);
     } catch (error) {
         console.error("Ошибка обработки задания:", error.message);
+        await sendResponseToQueue(channel, { id, data: null, error: error.message });
     }
 }
 
@@ -85,7 +85,9 @@ async function runMicroservice(channel) {
  */
 async function initRabbitMQ() {
     try {
-        const connection = await amqp.connect(RABBIT_MQ_URL);
+        const connection = await amqp.connect(RABBIT_MQ_URL, {
+            timeout: 2000,
+        });
         const channel = await connection.createChannel();
         console.log("Подключение к RabbitMQ");
         return channel;
