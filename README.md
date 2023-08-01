@@ -12,9 +12,15 @@ Consumer-микросервис возвращает результаты фун
 
 Если в мат. выражении будут ошибки, то вернётся ответ с ошибкой
 
+## Зависимости
+
+1. `npm install`
+
 ## Как запускать
 
-1. `docker-compose up` - поднятие rabbitmq
+В разных терминалах:
+
+1. `docker-compose up` - поднятие rabbitmq - оно в докере
 2. `npm run service:gateway` - запуск producer-сервиса 
 3. `npm run service:math` - запуск consumer-сервиса 
 
